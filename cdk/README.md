@@ -192,10 +192,12 @@ Manage cryptocurrency payments.
 
 ```json
 {
-    "userId": "12345",
-    "amount": 0.75,
-    "currency": "BTC",
-    "recipientAddress": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa"
+  "userId": "123",
+  "amount": "150.00",
+  "currency": "USD",
+  "metadata": {
+    "description": "Payment for services"
+  }
 }
 ```
 
@@ -204,15 +206,9 @@ Manage cryptocurrency payments.
 - **201 Created**
 
     ```json
-    {
-        "paymentId": "pay_003",
-        "userId": "12345",
-        "amount": 0.75,
-        "currency": "BTC",
-        "recipientAddress": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
-        "status": "Pending",
-        "createdAt": "2024-04-04T09:15:25Z"
-    }
+        {
+            "paymentId": "1234"
+        }
     ```
 
 - **400 Bad Request**
@@ -243,14 +239,15 @@ Manage cryptocurrency payments.
 
     ```json
     {
-        "paymentId": "pay_003",
-        "userId": "12345",
-        "amount": 0.75,
-        "currency": "BTC",
-        "recipientAddress": "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa",
-        "status": "Pending",
-        "createdAt": "2024-04-04T09:15:25Z",
-        "updatedAt": "2024-04-04T09:15:25Z"
+        "paymentId": "123",
+        "metadata": {
+            "description": "Payment for services"
+        },
+        "currency": "USD",
+        "updatedAt": "2024-12-15T09:53:44.435946",
+        "status": "pending",
+        "createdAt": "2024-12-15T09:53:44.435946",
+        "amount": "150.00"
     }
     ```
 
@@ -272,39 +269,36 @@ Manage cryptocurrency payments.
 
 - `x-api-key: YOUR_API_KEY`
 
-#### Query Parameters
-
-- `status` (optional, string): Filter payments by status (e.g., Pending, Completed).
-- `currency` (optional, string): Filter payments by currency (e.g., BTC, ETH).
-- `limit` (optional, integer): Number of payments to retrieve (default: 50).
-- `offset` (optional, integer): Pagination offset (default: 0).
-
 #### Responses
 
 - **200 OK**
 
     ```json
-    {
-        "payments": [
-            {
-                "paymentId": "pay_001",
-                "userId": "12345",
-                "amount": 0.5,
-                "currency": "BTC",
-                "status": "Completed",
-                "createdAt": "2024-04-02T10:20:30Z"
+    [
+        {
+            "metadata": {
+                "description": "Payment for services"
             },
-            {
-                "paymentId": "pay_002",
-                "userId": "12345",
-                "amount": 1.2,
-                "currency": "ETH",
-                "status": "Pending",
-                "createdAt": "2024-04-03T11:25:35Z"
-            }
-            // ... more payments
-        ],
-    }
+            "paymentId": "f8cf2796-aaf5-42d7-bf2b-b4e01e4c3b3e",
+            "currency": "USD",
+            "updatedAt": "2024-12-15T09:53:44.435946",
+            "status": "pending",
+            "createdAt": "2024-12-15T09:53:44.435946",
+            "amount": "150.00"
+        },
+        {
+            "metadata": {
+                "description": "Payment for services"
+            },
+            "paymentId": "7b07b1cc-5f26-402f-a71d-24d3bbe03c12",
+            "currency": "USD",
+            "updatedAt": "2024-12-17T18:46:18.235799",
+            "status": "pending",
+            "createdAt": "2024-12-17T18:46:18.235799",
+            "amount": "151.00"
+        }
+        // More payments...
+    ]
     ```
 
 ## Rates
@@ -345,12 +339,6 @@ Retrieve cryptocurrency rates information.
 #### Request Headers
 
 - `x-api-key: YOUR_API_KEY`
-
-#### Query Parameters
-
-- `currency` (required, string): The cryptocurrency to retrieve history for (e.g., BTC).
-- `startDate` (required, string, ISO 8601 format): Start date for the history (e.g., 2024-04-01).
-- `endDate` (required, string, ISO 8601 format): End date for the history (e.g., 2024-04-05).
 
 #### Responses
 
