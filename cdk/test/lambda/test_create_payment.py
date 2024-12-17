@@ -74,7 +74,6 @@ def test_create_payment_success(dynamodb_table):
 
     dynamodb = boto3.resource("dynamodb", region_name="us-east-1")
     table = dynamodb.Table("CryptoPaymentTable")
-    response = table.get_item(Key={"pk": user_id, "sk": f"PAYMENT#"})
 
     response = table.scan(
         FilterExpression=boto3.dynamodb.conditions.Attr("paymentId").eq(payment_id)
