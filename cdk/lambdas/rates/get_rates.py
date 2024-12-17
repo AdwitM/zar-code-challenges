@@ -2,16 +2,14 @@ import json
 import os
 import boto3
 from boto3.dynamodb.conditions import Key
-from botocore.exceptions import ClientError
-
-dynamodb = boto3.resource("dynamodb")
-table = dynamodb.Table(os.environ["MAIN_TABLE"])
 
 
 def handler(event, context):
     try:
+        dynamodb = boto3.resource("dynamodb")
+        table = dynamodb.Table(os.environ["MAIN_TABLE"])
         response = table.query(
-            KeyConditionExpression=Key("pk").eq("RATE") & Key("sk").begins_with("#"),
+            KeyConditionExpression=Key("pk").eq("RATE"),
             ScanIndexForward=False,  # Get latest first
         )
         items = response.get("Items", [])
